@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Play2ExcludedModulesSettings">
+    <option name="INFO">
+      <map>
+        <entry key="core">
+          <value>
+            <ProjectSettingsEntry>
+              <option name="version" value="2.2.1" />
+              <option name="sourceDir" value="F:\Project\platform\plugins\core\conf" />
+              <option name="confDir" value="F:\Project\platform\plugins\core\app" />
+              <option name="routesImports">
+                <list>
+                  <option value="play.libs.F" />
+                </list>
+              </option>
+              <option name="uri" value="/F:/Project/platform/plugins/core" />
+            </ProjectSettingsEntry>
+          </value>
+        </entry>
+        <entry key="models">
+          <value>
+            <ProjectSettingsEntry>
+              <option name="version" value="2.2.1" />
+              <option name="sourceDir" value="F:\Project\platform\plugins\models\conf" />
+              <option name="confDir" value="F:\Project\platform\plugins\models\app" />
+              <option name="routesImports">
+                <list>
+                  <option value="play.libs.F" />
+                </list>
+              </option>
+              <option name="uri" value="/F:/Project/platform/plugins/models" />
+            </ProjectSettingsEntry>
+          </value>
+        </entry>
+        <entry key="platform">
+          <value>
+            <ProjectSettingsEntry>
+              <option name="playDistrPath" value="D:/play-2.2.1/repository/local/com.typesafe.play/play_2.10/2.2.1/jars/play_2.10.jar" />
+            </ProjectSettingsEntry>
+          </value>
+        </entry>
+        <entry key="root">
+          <value>
+            <ProjectSettingsEntry>
+              <option name="version" value="2.2.1" />
+              <option name="sourceDir" value="F:\Project\platform\conf" />
+              <option name="confDir" value="F:\Project\platform\app" />
+              <option name="routesImports">
+                <list>
+                  <option value="play.libs.F" />
+                </list>
+              </option>
+              <option name="uri" value="/F:/Project/platform" />
+            </ProjectSettingsEntry>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

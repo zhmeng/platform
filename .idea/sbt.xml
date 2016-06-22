@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ScalaSbtSettings">
+    <option name="customLauncherEnabled" value="true" />
+    <option name="customLauncherPath" value="D:\play-2.2.1\framework\sbt\sbt-launch.jar" />
+    <option name="linkedExternalProjectsSettings">
+      <SbtProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="jdk" value="1.7" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/plugins/base" />
+            <option value="$PROJECT_DIR$/plugins/base/project" />
+            <option value="$PROJECT_DIR$/plugins/core" />
+            <option value="$PROJECT_DIR$/plugins/core/project" />
+            <option value="$PROJECT_DIR$/plugins/models" />
+            <option value="$PROJECT_DIR$/plugins/models/project" />
+            <option value="$PROJECT_DIR$/project" />
+          </set>
+        </option>
+        <option name="resolveClassifiers" value="false" />
+        <option name="sbtVersion" value="0.13.0" />
+      </SbtProjectSettings>
+    </option>
+    <option name="vmParameters" value="-XX:MaxPermSize=384M -Dsbt.ivy.home=D:\play-2.2.1\repository -Dsbt.boot.directory=D:\play-2.2.1\framework\sbt\boot" />
+  </component>
+</project>

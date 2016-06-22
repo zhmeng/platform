@@ -1,0 +1,28 @@
+projects
+project core
+run 9000
+dist
+run 9000
+exit
+run 9000
+clean
+projects
+run 9000
+compile
+run 9000
+reload
+run 9000
+reload
+update
+run 9000
+compile
+reload
+clean
+compile
+projects
+project core
+reload
+run 9000
+reload
+run 9000
+exit

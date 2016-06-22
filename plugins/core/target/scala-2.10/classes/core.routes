@@ -1,0 +1,2 @@
+GET     /           @controllers.core.BankAction.bankShow()
+GET     /testModel  @controllers.core.BankAction.testModel()
