@@ -13,9 +13,9 @@ create table bank (
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
+SET FOREIGN_KEY_CHECKS=0;
 
-drop table if exists bank;
+drop table bank;
 
-SET REFERENTIAL_INTEGRITY TRUE;
+SET FOREIGN_KEY_CHECKS=1;
 

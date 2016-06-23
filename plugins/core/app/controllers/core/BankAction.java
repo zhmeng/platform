@@ -8,6 +8,7 @@ import play.Play;
 import play.mvc.Controller;
 import play.mvc.Result;
 import services.core.BankService;
+import static plugins.freemarker.Freemarker.*;
 
 /**
  * Created by Administrator on 2016/6/22.
@@ -35,7 +36,7 @@ public class BankAction extends Controller{
     }
 
     public Result freemarker(){
-        return ok("freemarker");
+        return ok(view("core/index.ftl", _("user", "zhangmeng")));
     }
 
 }
