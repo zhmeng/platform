@@ -1,7 +1,0 @@
-[0m[[0mdebug[0m] [0mCopy resource mappings: [0m
-[0m[[0mdebug[0m] [0m	(F:\Project\platform\conf\application.conf,F:\Project\platform\target\scala-2.10\classes\application.conf)[0m
-[0m[[0mdebug[0m] [0m	(F:\Project\platform\conf\components.xml,F:\Project\platform\target\scala-2.10\classes\components.xml)[0m
-[0m[[0mdebug[0m] [0m	(F:\Project\platform\conf\evolutions,F:\Project\platform\target\scala-2.10\classes\evolutions)[0m
-[0m[[0mdebug[0m] [0m	(F:\Project\platform\conf\routes,F:\Project\platform\target\scala-2.10\classes\routes)[0m
-[0m[[0mdebug[0m] [0m	(F:\Project\platform\conf\evolutions\default,F:\Project\platform\target\scala-2.10\classes\evolutions\default)[0m
-[0m[[0mdebug[0m] [0m	(F:\Project\platform\conf\evolutions\default\1.sql,F:\Project\platform\target\scala-2.10\classes\evolutions\default\1.sql)[0m
