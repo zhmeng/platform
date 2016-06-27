@@ -4,7 +4,7 @@ organization in ThisBuild := "com.zhangmeng"
 
 scalaVersion in ThisBuild := "2.10.2"
 
-val freemarkerSetting = {
+val commonSetting = Seq(
     unmanagedResources in Compile <<= (
       javaSource in Compile,
       classDirectory in Compile,
@@ -13,12 +13,13 @@ val freemarkerSetting = {
       (app, classes, resources) =>
         IO.copyDirectory(app / "views", classes / "views", overwrite = true)
         resources
-    }
-}
+    },
+    generateReverseRouter := false
+)
 
 lazy val root = project.in(file("."))
-  .dependsOn(core)
-  .aggregate(core)
+  .dependsOn(backend)
+  .aggregate(backend)
 
 lazy val base = project.in(file("plugins/base"))
 
@@ -26,8 +27,9 @@ lazy val models = project.in(file("plugins/models"))
   .dependsOn(base)
   .aggregate(base)
 
-lazy val core = project.in(file("plugins/core"))
-  .settings(freemarkerSetting)
+lazy val backend = project.in(file("plugins/backend"))
+  .settings(playJavaSettings : _*)
+  .settings(commonSetting: _*)
   .dependsOn(base, models)
   .aggregate(base, models)
 

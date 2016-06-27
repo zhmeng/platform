@@ -36,13 +36,8 @@ public class Freemarker {
         }
     }
 
-    // Main API
 
-    public static Html view(String template, Arg... args) {
-        Map root = new HashMap();
-        for(Arg arg: args) {
-            root.put(arg.name, arg.value);
-        }
+    public static Html view(String template, Map root){
         ClassLoader cl = Thread.currentThread().getContextClassLoader();
         try {
             Writer out = new StringWriter();
@@ -69,6 +64,16 @@ public class Freemarker {
         } finally {
             Thread.currentThread().setContextClassLoader(cl);
         }
+    }
+
+    // Main API
+
+    public static Html view(String template, Arg... args) {
+        Map root = new HashMap();
+        for(Arg arg: args) {
+            root.put(arg.name, arg.value);
+        }
+        return view(template, root);
     }
 
     // Utils

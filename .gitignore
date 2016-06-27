@@ -27,3 +27,6 @@ RUNNING_PID
 
 .idea
 .idea_modules
+
+#NPM
+bower_components
