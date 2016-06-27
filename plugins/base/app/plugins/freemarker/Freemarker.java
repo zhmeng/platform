@@ -42,7 +42,7 @@ public class Freemarker {
         try {
             Writer out = new StringWriter();
             Thread.currentThread().setContextClassLoader(Play.application().classloader());
-            cfg.getTemplate(template).process(root, out);
+            cfg.getTemplate(template, "UTF-8").process(root, out);
             out.flush();
             return Html.apply(out.toString());
         } catch(FileNotFoundException e) {
