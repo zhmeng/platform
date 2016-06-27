@@ -1,3 +1,5 @@
+GET		/login			@controllers.backend.IndexAction.login()
+
 GET     /index          @controllers.backend.IndexAction.index()
 
 GET		/assets/*file	controllers.backend.Assets.at(path="/public", file)
