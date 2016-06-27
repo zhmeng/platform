@@ -36,6 +36,13 @@
 		<#include "navbar-header.ftl" />
 		<#include "navbar-left.ftl" />
 	</nav>
+	<div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">Blank</h1>
+            </div>
+        </div>
+	</div>
 </div>
 <!-- /#wrapper -->
 

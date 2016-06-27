@@ -13,6 +13,6 @@ import static plugins.freemarker.Freemarker.view;
 @Service
 public class IndexAction extends Controller {
     public Result index(){
-        return ok(view("core/index.ftl", _("title", "PLATFORM")));
+        return ok(view("backend/index.ftl", _("title", "PLATFORM")));
     }
 }
