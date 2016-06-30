@@ -17,20 +17,20 @@ val commonSetting = Seq(
     generateReverseRouter := false
 )
 
-lazy val root = project.in(file("."))
-  .dependsOn(backend)
-  .aggregate(backend)
-
 lazy val base = project.in(file("plugins/base"))
+  .settings(playScalaSettings: _*)
 
 lazy val models = project.in(file("plugins/models"))
+  .settings(playJavaSettings: _*)
   .dependsOn(base)
   .aggregate(base)
 
 lazy val backend = project.in(file("plugins/backend"))
-  .settings(playJavaSettings : _*)
-  .settings(commonSetting: _*)
+  .settings(playJavaSettings ++ commonSetting: _*)
   .dependsOn(base, models)
   .aggregate(base, models)
 
-play.Project.playJavaSettings
+lazy val minishop = project.in(file("plugins/minishop"))
+  .settings(playJavaSettings ++ commonSetting: _*)
+  .dependsOn(backend)
+  .aggregate(backend)

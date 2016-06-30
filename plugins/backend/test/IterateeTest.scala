@@ -4,6 +4,8 @@ import java.util.concurrent.TimeUnit
 
 import play.api.DefaultApplication
 import play.api.libs.iteratee._
+import play.api.mvc.RequestHeader
+import play.core.Router.Routes
 import play.core.StaticApplication
 import play.libs.F.Promise
 import play.test.Helpers
@@ -125,6 +127,22 @@ object IterateeTest  {
 
   }
 
+  def testFour = {
+    List[(String,Routes)]().foreach {
+      case (p, router) => {
+        println(p)
+      }
+    }
+  }
+
+  def getPrefixByRequest(uri: String): Option[String] = {
+    val matcher = """^/(.+)/.+""".r
+    uri match {
+      case matcher(prefix) => Some(prefix)
+      case _ => None
+    }
+  }
+
   def main(args: Array[String]): Unit = {
 //    methodOne
 //    methodTwo
@@ -132,8 +150,13 @@ object IterateeTest  {
 //    methodFour
 //    methodFive
 //    testOne
-    testThree
-    TimeUnit.SECONDS.sleep(10)
+//    testThree
+//    testFour
+    val prefix = "/hello/zxcvasd"
+    val op = getPrefixByRequest(prefix)
+    println(op getOrElse "asd")
+
+    TimeUnit.SECONDS.sleep(2)
   }
 
 }

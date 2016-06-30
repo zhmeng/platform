@@ -3,7 +3,9 @@ libraryDependencies ++= Seq(
   cache,
   javaCore,
   javaEbean,
+  "com.typesafe.play" % "routes-compiler_2.10" % "2.2.1",
   "com.github.mumoshu" %% "play2-memcached" % "0.4.0",
+  "com.lmax" % "disruptor" % "3.3.2",
   "mysql" % "mysql-connector-java" % "5.1.6",
   "org.freemarker" % "freemarker" % "2.3.19",
   "org.springframework" % "spring-context" % "3.2.5.RELEASE",
@@ -11,5 +13,3 @@ libraryDependencies ++= Seq(
 )
 
 resolvers += "Spy Repository" at "http://files.couchbase.com/maven2"
-
-play.Project.playScalaSettings

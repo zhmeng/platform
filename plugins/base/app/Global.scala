@@ -1,4 +1,5 @@
-import play.api.{Application, GlobalSettings}
+import play.api.mvc.{Handler, RequestHeader}
+import play.api.{Play, Application, GlobalSettings}
 import plugins.spring.{SpringPlugin, Spring}
 
 /**
@@ -20,4 +21,5 @@ object Global extends GlobalSettings {
   override def getControllerInstance[A](controllerClass: Class[A]): A = {
     Spring.getBeanOfType(controllerClass)
   }
+  
 }
