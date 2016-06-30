@@ -3,7 +3,7 @@
 <#assign xcss>
 <style>
 	body{
-		background: url('assets/images/new_year_background.png') repeat;
+		background: url('/assets/images/new_year_background.png') repeat;
 	}
 	.btn-lg, .panel, .form-control {
 		border-radius: 2px;

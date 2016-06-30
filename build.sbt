@@ -34,3 +34,5 @@ lazy val minishop = project.in(file("plugins/minishop"))
   .settings(playJavaSettings ++ commonSetting: _*)
   .dependsOn(backend)
   .aggregate(backend)
+
+play.Project.playJavaSettings
