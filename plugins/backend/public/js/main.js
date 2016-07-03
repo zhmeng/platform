@@ -7,6 +7,7 @@
             'metisMenu': 'bower_components/metisMenu/dist/metisMenu.min',
             'sbAdmin': 'js/thrid/sb-admin-2',
             'backbone': 'bower_components/backbone/backbone',
+            'text': 'bower_components/text/text',
             'underscore': 'bower_components/underscore/underscore'
         },
         shim: {
@@ -16,7 +17,7 @@
             'backbone': ['jquery', 'underscore']
         }
     });
-    require(['backbone', 'underscore', 'jquery', 'bootstrap', 'metisMenu', 'sbAdmin'], function(Backbone, _ , $) {
-        Backbone.history.start();
+    require(['js/business/app','backbone', 'underscore', 'jquery', 'bootstrap', 'metisMenu', 'sbAdmin'], function(App,Backbone, _ , $) {
+        App.init();
     });
 })();
