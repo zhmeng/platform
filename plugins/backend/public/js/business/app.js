@@ -1,17 +1,13 @@
-define(['backbone', 'jquery', 'common'], function(Backbone, $, Common){
+define(['backbone', 'jquery', 'common'], function(Backbone, $){
     var app = {
         currentView: null,
         router: null,
-        stack: [],
+        lruCache: new $.LRUCache(),
         init: function(){
             console.log('app init');
         },
-        showView: function(view, params){
-            if (this.currentView && params['keep'] == undefined){
-                this.currentView.close();
-            }else{
-
-            }
+        showView: function(view){
+            // this.currentView && this.currentView.close();
             this.currentView = view;
             $("#page-wrapper").html(this.currentView.el);
         },
@@ -21,9 +17,18 @@ define(['backbone', 'jquery', 'common'], function(Backbone, $, Common){
             var jsUrl = urlArr[0];
             var paraUrl = urlArr[1];
             var paraJson = $.queryToJson(paraUrl);
-            require([jsUrl], function(index){
-                self.showView(new index($.extend({method: url}, paraJson)), paraJson);
-            });
+            if(this.lruCache.get(jsUrl) && !!!paraJson['renew']){ //在缓存内获取到
+                var view = this.lruCache.get(jsUrl);
+                $("#page-wrapper").html(view.el);
+                view.delegateEvents();
+            }else {
+                require([jsUrl], function(index){
+                    var view = new index($.extend({method: url}, paraJson));
+                    self.lruCache.set(jsUrl, view);
+                    self.showView(view);
+                })
+            }
+
         }
     };
     var Router = Backbone.Router.extend({

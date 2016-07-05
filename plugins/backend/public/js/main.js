@@ -9,7 +9,8 @@
             'backbone': 'bower_components/backbone/backbone',
             'text': 'bower_components/text/text',
             'underscore': 'bower_components/underscore/underscore',
-            'common': 'js/libs/common'
+            'common': 'js/libs/common',
+            'component': 'js/libs/component'
         },
         shim: {
             'bootstrap': ['jquery'],

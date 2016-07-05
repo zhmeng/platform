@@ -1,7 +1,7 @@
 /**
  * Created by wjr on 16-7-4.
  */
-define(['jquery', 'backbone', 'js/libs/stack'],function($, Backbone, Stack){
+define(['jquery', 'backbone', 'js/libs/stack', 'js/libs/lru'],function($, Backbone, Stack){
     $.fn.serializeEl = function(){
         var param = {};
         var input = this.find('input,select');
@@ -28,6 +28,9 @@ define(['jquery', 'backbone', 'js/libs/stack'],function($, Backbone, Stack){
         }
     };
     $.queryToJson = function(queryString) {
+        if(queryString == undefined || queryString == ""){
+            return {};
+        }
         var j, q;
         q = queryString.replace(/\?/, "").split("&");
         j = {};
@@ -38,4 +41,5 @@ define(['jquery', 'backbone', 'js/libs/stack'],function($, Backbone, Stack){
         return j;
     };
     $.Stack = Stack;
+    $.LRUCache = LRUCache
 });
