@@ -8,7 +8,8 @@
             'sbAdmin': 'js/thrid/sb-admin-2',
             'backbone': 'bower_components/backbone/backbone',
             'text': 'bower_components/text/text',
-            'underscore': 'bower_components/underscore/underscore'
+            'underscore': 'bower_components/underscore/underscore',
+            'common': 'js/libs/common'
         },
         shim: {
             'bootstrap': ['jquery'],
@@ -17,7 +18,7 @@
             'backbone': ['jquery', 'underscore']
         }
     });
-    require(['js/business/app','backbone', 'underscore', 'jquery', 'bootstrap', 'metisMenu', 'sbAdmin'], function(App,Backbone, _ , $) {
+    require(['jquery', 'underscore', 'backbone', 'common' , 'bootstrap', 'metisMenu', 'js/business/app'], function(a, b, c, d, e, f, App) {
         App.init();
     });
 })();

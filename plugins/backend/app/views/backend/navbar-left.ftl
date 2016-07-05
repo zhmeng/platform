@@ -13,19 +13,7 @@
                 <!-- /input-group -->
             </li>
             <li>
-                <a href="#index" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-            </li>
-            <li>
-                <a href="#show"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level collapse">
-                    <li>
-                        <a href="flot.html">Flot Charts</a>
-                    </li>
-                    <li>
-                        <a href="morris.html">Morris.js Charts</a>
-                    </li>
-                </ul>
-                <!-- /.nav-second-level -->
+                <a href="#js/business/views/first" class="active"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
             </li>
             <li>
                 <a href="#js/business/views/index"><i class="fa fa-table fa-fw"></i> Tables</a>
