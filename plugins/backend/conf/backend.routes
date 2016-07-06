@@ -1,3 +1,5 @@
 GET		/backend/login			@controllers.backend.IndexAction.login()
 
 GET     /backend/index          @controllers.backend.IndexAction.index()
+
+GET		/backend/demoD			@controllers.backend.IndexAction.demoD()

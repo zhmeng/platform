@@ -1,7 +1,11 @@
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.Test;
 import play.test.FakeApplication;
 import play.test.Helpers;
+import plugins.spring.Spring;
+import services.backend.BaseBean;
+import services.backend.SelectFactory;
 
 /**
  * Created by zhangmeng on 16-6-27.
@@ -12,6 +16,11 @@ public class BaseTest {
     public static void before(){
         fakeApplication = Helpers.fakeApplication();
         Helpers.start(fakeApplication);
+    }
+    @Test
+    public void testSpringFactory(){
+        BaseBean bb = (BaseBean)Spring.getBean("selectfactory");
+        bb.show();
     }
 
     @AfterClass

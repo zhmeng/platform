@@ -16,6 +16,10 @@
 		<!-- MetisMenu CSS -->
 		<link href="/assets/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
+        <link href="/assets/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+
+        <link href="/assets/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+
 		<!-- Custom CSS -->
 		<link href="/assets/css/sb-admin-2.css" rel="stylesheet">
 
