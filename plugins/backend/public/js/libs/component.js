@@ -39,7 +39,7 @@ define([
         },
         //生成Table
         geneTable: function(params){
-            var table = $('<table class="display table table-striped table-bordered table-hover dtr-inline" style="width: 100%"></table>');
+            var table = $('<table class="display table table-striped table-bordered table-hover dtr-inline" width="100%"></table>');
             table.DataTable(params);
             return table;
         },

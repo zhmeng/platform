@@ -1,6 +1,7 @@
 package controllers.backend;
 
 import org.springframework.stereotype.Service;
+import play.Logger;
 import play.libs.F;
 import play.libs.WS;
 import play.mvc.Controller;
@@ -12,10 +13,15 @@ import static plugins.freemarker.Freemarker.view;
 /**
  * Created by zhangmeng on 16-6-27.
  */
-@Service
+@Service("indexAction")
 public class IndexAction extends Controller {
 
+    public void showHello(){
+        Logger.info("show hello.");
+    }
+
     public Result login() {
+        Logger.info("login index..");
         return ok(view("backend/login.ftl"));
     }
 

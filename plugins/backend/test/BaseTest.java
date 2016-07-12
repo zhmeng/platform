@@ -1,3 +1,5 @@
+import baser.LogIntercept;
+import controllers.backend.IndexAction;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -21,6 +23,14 @@ public class BaseTest {
     public void testSpringFactory(){
         BaseBean bb = (BaseBean)Spring.getBean("selectfactory");
         bb.show();
+    }
+
+    @Test
+    public void testAspect(){
+        IndexAction indexAction = Spring.getBeanOfType(IndexAction.class);
+        indexAction.showHello();
+//        LogIntercept beanOfType = Spring.getBeanOfType(LogIntercept.class);
+//        beanOfType.log();
     }
 
     @AfterClass

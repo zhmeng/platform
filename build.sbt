@@ -19,9 +19,11 @@ val commonSetting = Seq(
 
 lazy val base = project.in(file("plugins/base"))
   .settings(playScalaSettings: _*)
+  .settings(playPlugin := true)
 
 lazy val models = project.in(file("plugins/models"))
   .settings(playJavaSettings: _*)
+  .settings(playPlugin := true)
   .dependsOn(base)
   .aggregate(base)
 
