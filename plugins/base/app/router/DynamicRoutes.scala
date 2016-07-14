@@ -11,6 +11,7 @@ import play.router.RoutesCompiler.{RoutesCompilationError, RouteFileParser}
 
 import scala.collection.immutable.HashMap
 import scala.collection.mutable
+import scala.util.matching.Regex
 
 /**
  * Created by zhangmeng on 16-6-30.
@@ -18,6 +19,8 @@ import scala.collection.mutable
 object DynamicRoutes extends Router.Routes{
 
   private var _prefix = "/"
+
+  val routMap = new mutable.HashMap[String, PartialFunction[RequestHeader, Handler]] with mutable.SynchronizedMap[String, PartialFunction[RequestHeader, Handler]]
 
   var documentation: Seq[(String, String, String)] = scala.collection.mutable.ArrayBuffer()
 
@@ -37,15 +40,21 @@ object DynamicRoutes extends Router.Routes{
     }
   }
 
+  lazy val regex = """/(.+)/.+""".r
+
   override def handlerFor(request: RequestHeader): Option[Handler] = {
-    routes.lift(request)
+    request.uri match {
+      case regex(rgx) => routMap.get(rgx).getOrElse(routes).lift(request)
+      case _ => routes.lift(request)
+    }
   }
 
   var routes: PartialFunction[RequestHeader, Handler] = defaultRoutes
 
-  def appendRoutes(appendRoutes: PartialFunction[RequestHeader, Handler], document: Seq[(String, String, String)]) = this.synchronized {
-    routes = routes orElse appendRoutes
-    documentation ++= document
+  def appendRoutes(prefix: String, router:Router.Routes) = this.synchronized {
+    router.setPrefix("/" + prefix)
+    routMap += (prefix -> router.routes)
+    documentation ++= router.documentation
   }
 
 }

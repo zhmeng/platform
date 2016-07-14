@@ -1,5 +1,5 @@
 import play.api.mvc.{Handler, RequestHeader}
-import play.api.{Play, Application, GlobalSettings}
+import play.api.{Logger, Play, Application, GlobalSettings}
 import plugins.spring.{SpringPlugin, Spring}
 
 /**
@@ -11,10 +11,12 @@ object Global extends GlobalSettings {
 
   override def onStart(app: Application): Unit = {
     springPlugin = new SpringPlugin(app)
+    Logger.info("start spring plugin.");
     springPlugin.onStart()
   }
 
   override def onStop(app: Application): Unit = {
+    Logger.info("stop spring plugin.");
     springPlugin.onStop();
   }
 

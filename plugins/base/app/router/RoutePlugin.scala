@@ -22,6 +22,8 @@ trait RoutePlugin extends play.api.Plugin{
 
   override def onStart(): Unit = {
     val selfRoutes = companion[Router.Routes]("Routes")
-    DynamicRoutes.appendRoutes(selfRoutes.routes, selfRoutes.documentation)
+    prefix.map{
+      prefixStr => DynamicRoutes.appendRoutes(prefixStr, selfRoutes)
+    }
   }
 }

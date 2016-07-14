@@ -1,1 +1,1 @@
-GET		/minishop/index			controllers.minishop.MiniAction.index
+GET		/index			controllers.minishop.MiniAction.index

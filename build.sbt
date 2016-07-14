@@ -2,8 +2,6 @@ name := "platform"
 
 organization in ThisBuild := "com.zhangmeng"
 
-scalaVersion in ThisBuild := "2.10.2"
-
 val commonSetting = Seq(
     unmanagedResources in Compile <<= (
       javaSource in Compile,
@@ -17,6 +15,8 @@ val commonSetting = Seq(
     generateReverseRouter := false
 )
 
+lazy val root = project.in(file("."))
+
 lazy val base = project.in(file("plugins/base"))
   .settings(playScalaSettings: _*)
   .settings(playPlugin := true)
@@ -26,6 +26,11 @@ lazy val models = project.in(file("plugins/models"))
   .settings(playPlugin := true)
   .dependsOn(base)
   .aggregate(base)
+
+lazy val tester = project.in(file("plugins/tester"))
+  .settings(playJavaSettings ++ commonSetting: _*)
+  .dependsOn(base, models)
+  .aggregate(base, models)
 
 lazy val backend = project.in(file("plugins/backend"))
   .settings(playJavaSettings ++ commonSetting: _*)
@@ -37,4 +42,4 @@ lazy val minishop = project.in(file("plugins/minishop"))
   .dependsOn(backend)
   .aggregate(backend)
 
-play.Project.playJavaSettings
+play.Project.playScalaSettings

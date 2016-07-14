@@ -1,5 +1,7 @@
 package controllers.backend;
 
+import baser.aspect.LogTimeInterceptor;
+import baser.aspect.With;
 import org.springframework.stereotype.Service;
 import play.Logger;
 import play.libs.F;
@@ -7,14 +9,18 @@ import play.libs.WS;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import static plugins.freemarker.Freemarker._;
 import static plugins.freemarker.Freemarker.view;
 
 /**
  * Created by zhangmeng on 16-6-27.
  */
-@Service("indexAction")
+@Service
 public class IndexAction extends Controller {
+
+    public AtomicInteger ai = new AtomicInteger(0);
 
     public void showHello(){
         Logger.info("show hello.");
@@ -37,5 +43,11 @@ public class IndexAction extends Controller {
                 return ok(response.asJson());
             }
         });
+    }
+
+    @With(LogTimeInterceptor.class)
+    public Result xnotify(){
+        Logger.info("{} address, {}", request().remoteAddress(),  ai.addAndGet(1));
+        return TODO;
     }
 }
