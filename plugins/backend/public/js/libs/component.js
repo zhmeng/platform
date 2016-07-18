@@ -38,9 +38,8 @@ define([
             return this;
         },
         //生成Table
-        geneTable: function(params){
-            var table = $('<table class="display table table-striped table-bordered table-hover dtr-inline" width="100%"></table>');
-            table.DataTable(params);
+        geneTable: function(){
+            var table = $('<table class="table table-striped table-bordered table-hover" width="100%"></table>');
             return table;
         },
         appendTable: function(params){
@@ -48,14 +47,9 @@ define([
             this.tmpContent.append($table);
             return this;
         },
-        getRowDiv: function(){
-            return $('<div class="row"></div>');
-        },
         geneFullTable: function($row1, $row2, $row3){
             var $full = $('<div>');
-            $full.append(this.getRowDiv().append($row1));
-            $full.append(this.getRowDiv().append($row2));
-            $full.append(this.getRowDiv().append($row3));
+            $full.append($row1).append($row2);
             return $full;
         },
         appendFullTable: function($row1, $row2, $row3){
@@ -64,10 +58,14 @@ define([
             return this;
         },
         geneSingle: function(param){
-            var $e = $('<div class="col-md-3"></div>');
+            var $e = $('<div class="col-md-3 form-group"></div>');
+            if(param['type'] == 'button') {
+                $e.append($('<button type="submit" class="btn btn-default" style="min-width: 80px;">'+ param['name'] +'</button>'));
+                return $e;
+            }
             var $group = $('<div class="input-group"></div>');
             $group.append($('<span class="input-group-addon">'+ param['name'] +'</span>'));
-            if(param['type'] == 'text'){
+            if(param['type'] == undefined || param['type'] == 'text'){
                 $group.append($('<input type="text" class="form-control" />'));
             }
             $e.append($group);
@@ -75,9 +73,17 @@ define([
         },
         geneForm: function(params) {
             var $form = $('<div></div>');
-            for(var i = 0 ; i < params.length ; i++){
-                $form.append(this.geneSingle(params[i]));
+            var $tmp = $('<div class="row"></div>');
+            for(var i = 0 ; i < params.filters.length ; i++){
+                $tmp.append(this.geneSingle(params.filters[i]));
             }
+            //$form.append($tmp);
+            //var $btns = $('<div class="row"></div>');
+            for(var j = 0 ; j < params.btns.length; j++){
+                params.btns[j]['type'] = 'button';
+                $tmp.append(this.geneSingle(params.btns[j]));
+            }
+            $form.append($tmp);
             return $form;
         },
         appendForm: function(params){

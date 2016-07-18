@@ -23,7 +23,6 @@ import static plugins.freemarker.Freemarker.view;
 @Service("testAction")
 public class TestAction extends play.mvc.Controller{
 
-    @With(LogTimeInterceptor.class)
     public Result xnotify(){
         Logger.info("NOTIFY IT..");
         return Results.badRequest();

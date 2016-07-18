@@ -10,6 +10,7 @@ import play.mvc.Result;
 import play.test.FakeApplication;
 import play.test.Helpers;
 import plugins.spring.Spring;
+import services.IcashService;
 
 /**
  * Created by zhangmeng on 16-6-27.
@@ -25,8 +26,8 @@ public class BaseTest {
     public void testAspect(){
 //        ExampleService beanOfType = Spring.getBeanOfType(ExampleService.class);
 //        beanOfType.showHello();
-        TestAction beanOfType = Spring.getBeanOfType(TestAction.class);
-        Result xnotify = beanOfType.xnotify();
+        IcashService bean = (IcashService) Spring.getBean("cashsyncservice.common");
+        bean.show();
     }
 
     @Test

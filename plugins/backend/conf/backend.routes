@@ -8,4 +8,6 @@ GET		/notify			@controllers.backend.IndexAction.xnotify()
 
 POST	/notify			@controllers.backend.IndexAction.xnotify()
 
-GET		/show			controllers.backend.ShowAction.show
+GET		/demoData		@controllers.backend.IndexAction.demoData()
+
+POST	/demoData		@controllers.backend.IndexAction.demoData()

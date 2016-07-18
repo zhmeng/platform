@@ -2,13 +2,21 @@ package controllers.backend;
 
 import baser.aspect.LogTimeInterceptor;
 import baser.aspect.With;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.google.common.collect.Maps;
+import forms.BankForm;
+import models.Bank;
 import org.springframework.stereotype.Service;
 import play.Logger;
+import play.data.Form;
 import play.libs.F;
+import play.libs.Json;
 import play.libs.WS;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static plugins.freemarker.Freemarker._;
@@ -49,5 +57,17 @@ public class IndexAction extends Controller {
     public Result xnotify(){
         Logger.info("{} address, {}", request().remoteAddress(),  ai.addAndGet(1));
         return TODO;
+    }
+
+    public Result demoData(){
+        BankForm bankForm = Form.form(BankForm.class).bindFromRequest().get();
+        List<Bank> list = Bank.getList();
+        List<Bank> banks = list.subList(bankForm.getStart(), bankForm.getEnd() > list.size() ? list.size() : bankForm.getEnd());
+        Map<String, Object> map = Maps.newHashMap();
+        map.put("draw", bankForm.getDraw());
+        map.put("recordsTotal", list.size());
+        map.put("recordsFiltered", list.size());
+        map.put("data", banks);
+        return ok(Json.toJson(map));
     }
 }
