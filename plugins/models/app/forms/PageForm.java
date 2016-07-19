@@ -20,6 +20,10 @@ public class PageForm {
         return start;
     }
 
+    public Integer currentPage(){
+        return start / length;
+    }
+
     public void setStart(Integer start) {
         this.start = start;
     }

@@ -7,7 +7,6 @@ define(['backbone', 'jquery', 'common'], function(Backbone, $){
             console.log('app init');
         },
         showView: function(view){
-            // this.currentView && this.currentView.close();
             this.currentView = view;
             $("#page-wrapper").html(this.currentView.el);
         },

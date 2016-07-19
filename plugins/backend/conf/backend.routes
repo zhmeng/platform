@@ -2,12 +2,6 @@ GET		/login			@controllers.backend.IndexAction.login()
 
 GET     /index          @controllers.backend.IndexAction.index()
 
-GET		/demoD			@controllers.backend.IndexAction.demoD()
-
-GET		/notify			@controllers.backend.IndexAction.xnotify()
-
-POST	/notify			@controllers.backend.IndexAction.xnotify()
-
 GET		/demoData		@controllers.backend.IndexAction.demoData()
 
 POST	/demoData		@controllers.backend.IndexAction.demoData()

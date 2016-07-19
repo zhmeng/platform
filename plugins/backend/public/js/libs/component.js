@@ -6,7 +6,66 @@ define([
     'underscore',
     'datatables'
 ], function($, _){
-    var view = Backbone.View.extend({
+    var Tab = Backbone.Base.extend({
+        initialize: function(params){
+            this.$top = $('<ul class="nav nav-tabs">');
+            this.$bottom = $('<div class="tab-content">');
+            this.tabs = {};
+            this.contents = {};
+            var self = this;
+            _.each(params, function(d, idx) {
+                self.add(d);
+            });
+            this.$full = $('<div>');
+            this.$full.append(this.$top);
+            this.$full.append(this.$bottom);
+        },
+        full: function(){
+            return this.$full;
+        },
+        addTab: function(params){
+            var idx = this.add(params);
+            this.tabs[idx].find('a').tab('show');
+        },
+        closeTab: function(idx){
+            this.remove(idx);
+        },
+        add: function(params){
+            var self = this;
+            var id = _.uniqueId("tab");
+            var active = params['active'] == true ? 'active' : '';
+            var panActive = params['active'] == true ? 'active in' : '';
+            var $li = $('<li class="' + active + '"><a href="#'+ id +'" data-toggle="tab">' + params['title'] + '</a></li>');
+            $li.on('click', function(e){
+                var idx = $(e.currentTarget).children('a').attr('href');
+                self.remove(idx);
+            });
+            var $con = $('<div class="tab-pane fade '+ panActive +'" id="' + id + '"></div>');
+            $con.html(params['content']);
+            this.tabs[id] = $li;
+            this.contents[id] = $con;
+            self.$top.append($li);
+            self.$bottom.append($con);
+            return id;
+        },
+        remove: function(idx){
+            var self = this;
+            idx = idx.substring(1);
+            _.each(this.tabs, function(v, k){
+               if(k.length > idx.length || k > idx){
+                   v.remove();
+                   delete self.tabs[k];
+               }
+            });
+            _.each(this.contents, function(v, k){
+               if(k.length > idx.length || k > idx){
+                   v.remove();
+                   delete self.tabs[k];
+               }
+            });
+        }
+    });
+    var base = Backbone.Base.extend({
         initialize: function(owner){
             this.tmpContent = $("<div></div>");
             this.owner = owner;
@@ -18,7 +77,7 @@ define([
         },
         //生成标题
         appendTitle: function(title){
-            var $e = $('<div class="row"><div class="col-md-12"><h3 class="page-header">' +　title + '</h3></div></div>');
+            var $e = $('<div class="row"><div class="col-md-12"><h3>' +　title + '</h3></div></div>');
             this.tmpContent.append($e);
             return this;
         },
@@ -47,7 +106,7 @@ define([
             this.tmpContent.append($table);
             return this;
         },
-        geneFullTable: function($row1, $row2, $row3){
+        geneFullTable: function($row1, $row2){
             var $full = $('<div>');
             $full.append($row1).append($row2);
             return $full;
@@ -59,17 +118,21 @@ define([
         },
         geneSingle: function(param){
             var $e = $('<div class="col-md-3 form-group"></div>');
-            if(param['type'] == 'button') {
-                $e.append($('<button type="submit" class="btn btn-default" style="min-width: 80px;">'+ param['name'] +'</button>'));
-                return $e;
-            }
             var $group = $('<div class="input-group"></div>');
-            $group.append($('<span class="input-group-addon">'+ param['name'] +'</span>'));
+            $group.append($('<span class="input-group-addon">'+ param['title'] +'</span>'));
             if(param['type'] == undefined || param['type'] == 'text'){
-                $group.append($('<input type="text" class="form-control" />'));
+                $group.append($('<input type="text" name="' + param['name'] + '" class="form-control" />'));
             }
             $e.append($group);
             return $e;
+        },
+        geneBtn : function(param) {
+            if(param['type'] == 'button') {
+                var clazz = param['class'] == undefined ? 'btn-default' : param['class'];
+                var $btn = $('<button type="submit" class="btn ' + clazz + '" style="min-width: 80px; margin-right: 10px; margin-bottom: 10px;">'+ param['title'] +'</button>');
+                $btn.on('click', param.callback);
+                return $btn;
+            }
         },
         geneForm: function(params) {
             var $form = $('<div></div>');
@@ -77,13 +140,13 @@ define([
             for(var i = 0 ; i < params.filters.length ; i++){
                 $tmp.append(this.geneSingle(params.filters[i]));
             }
-            //$form.append($tmp);
-            //var $btns = $('<div class="row"></div>');
+            $form.append($tmp);
+            var $btns = $('<div class="row col-md-12">');
             for(var j = 0 ; j < params.btns.length; j++){
                 params.btns[j]['type'] = 'button';
-                $tmp.append(this.geneSingle(params.btns[j]));
+                $btns.append(this.geneBtn(params.btns[j]));
             }
-            $form.append($tmp);
+            $form.append($btns);
             return $form;
         },
         appendForm: function(params){
@@ -91,10 +154,19 @@ define([
             this.tmpContent.append($form);
             return this;
         },
+        geneTab: function(params){
+            var tab = new Tab(params);
+            return tab;
+        },
         build: function(){
             this.owner.$el.append(this.tmpContent);
             this.tmpContent = $('<div></div>');
+        },
+        rebuild: function(){
+            this.owner.$el.empty();
+            this.owner.$el.append(this.tmpContent);
+            this.tmpContent = $('<div>');
         }
     });
-    return view;
+    return base;
 });

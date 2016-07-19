@@ -2,10 +2,11 @@ package controllers.backend;
 
 import baser.aspect.LogTimeInterceptor;
 import baser.aspect.With;
-import com.fasterxml.jackson.databind.JsonNode;
+import com.avaje.ebean.Page;
 import com.google.common.collect.Maps;
 import forms.BankForm;
 import models.Bank;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import play.Logger;
 import play.data.Form;
@@ -14,6 +15,8 @@ import play.libs.Json;
 import play.libs.WS;
 import play.mvc.Controller;
 import play.mvc.Result;
+import plugins.ebean.Paging;
+import services.backend.BankService;
 
 import java.util.List;
 import java.util.Map;
@@ -28,11 +31,10 @@ import static plugins.freemarker.Freemarker.view;
 @Service
 public class IndexAction extends Controller {
 
-    public AtomicInteger ai = new AtomicInteger(0);
+    @Autowired
+    private BankService bankService;
 
-    public void showHello(){
-        Logger.info("show hello.");
-    }
+    public AtomicInteger ai = new AtomicInteger(0);
 
     public Result login() {
         Logger.info("login index..");
@@ -43,31 +45,9 @@ public class IndexAction extends Controller {
         return ok(view("backend/index.ftl", _("title", "PLATFORM")));
     }
 
-    public F.Promise<Result> demoD() {
-        F.Promise<WS.Response> responsePromise = WS.url("https://datatables.net/examples/ajax/data/arrays.txt").get();
-        return responsePromise.map(new F.Function<WS.Response, Result>() {
-            @Override
-            public Result apply(WS.Response response) throws Throwable {
-                return ok(response.asJson());
-            }
-        });
-    }
-
-    @With(LogTimeInterceptor.class)
-    public Result xnotify(){
-        Logger.info("{} address, {}", request().remoteAddress(),  ai.addAndGet(1));
-        return TODO;
-    }
-
     public Result demoData(){
         BankForm bankForm = Form.form(BankForm.class).bindFromRequest().get();
-        List<Bank> list = Bank.getList();
-        List<Bank> banks = list.subList(bankForm.getStart(), bankForm.getEnd() > list.size() ? list.size() : bankForm.getEnd());
-        Map<String, Object> map = Maps.newHashMap();
-        map.put("draw", bankForm.getDraw());
-        map.put("recordsTotal", list.size());
-        map.put("recordsFiltered", list.size());
-        map.put("data", banks);
-        return ok(Json.toJson(map));
+        Page<Bank> banks = bankService.list(bankForm);
+        return ok(Paging.toPage(banks).toJson());
     }
 }

@@ -5,22 +5,34 @@ define(['backbone', 'component'], function(Backbone, Component){
     var view = Backbone.View.extend({
         initialize: function(){
             this.content = new Component(this);
+            this.tableRef = undefined;
+            this.seaFormRef = {};
+            this.tabs = undefined;
             this.render();
         },
         showHello: function(d){
             console.log('Hello');
             console.log(d);
         },
+        doSearch: function(){
+            this.tableRef.ajax.reload();
+        },
         render: function(){
             var self = this;
             var formParams = {
                 filters:[{
-                    name: '名称'
+                    title: '名称',
+                    name: 'name'
                 },{
-                    name: '地址'
+                    title: '地址',
+                    name: 'address'
                 }],
                 btns: [{
-                    name: '查询'
+                    title: '查询',
+                    class: 'btn-primary',
+                    callback: $.proxy(self.doSearch, self)
+                },{
+                    title: '新增'
                 }]
             };
             var tableParams = {
@@ -28,7 +40,7 @@ define(['backbone', 'component'], function(Backbone, Component){
                     url: '/backend/demoData',
                     type: 'POST',
                     data: function(d){
-                        console.log('VV');
+                        $.extend(d, self.seaFormRef.serializeJson());
                     }
                 },
                 columns: [{
@@ -62,7 +74,33 @@ define(['backbone', 'component'], function(Backbone, Component){
                 .appendTitle('H3 TITLE')
                 .appendPanel($("<div>HELLO</div>"), $fullTable)
                 .build();
-            $table.nDataTable(tableParams);
+
+            $tabs = this.content.geneTab([{
+                title: '标题档',
+                content: 'asdfsdf',
+                active: true
+            },{
+                title: '好学生',
+                content: '我是一个好学生'
+            },{
+                title: '第三者',
+                content: '我是第三真'
+            }]);
+            this.tabs = $tabs;
+            this.content.appendNative($tabs.full()).rebuild();
+            var $button = $('<button class="btn btn-default">ADD</button>');
+            $button.click(function(){
+                self.tabs.addTab({
+                    title: '第五个',
+                    content: '<div>GOGOGOG</div>'
+                })
+            });
+            $tabs.add({
+                title: '第四者',
+                content: $button
+            });
+            this.seaFormRef = $searchContent;
+            this.tableRef = $table.nDataTable(tableParams);
         }
     });
     return view;

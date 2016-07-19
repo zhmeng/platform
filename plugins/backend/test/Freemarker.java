@@ -26,7 +26,6 @@ public class Freemarker {
     @Test
     public void getBean() {
         BankService bs = Spring.getBeanOfType(BankService.class);
-        System.out.println(bs.showBank());
     }
 
     @Test
