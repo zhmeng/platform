@@ -10,24 +10,25 @@ define(['backbone', 'jquery', 'common'], function(Backbone, $){
             this.currentView = view;
             $("#page-wrapper").html(this.currentView.el);
         },
+        view404: Backbone.View.extend({
+            initialize: function(err){
+                this.$el.html(err.message);
+            }
+        }),
         loadHmtlByJs: function(url) {
             var self = this;
             var urlArr = url.split('#');
             var jsUrl = urlArr[0];
             var paraUrl = urlArr[1];
             var paraJson = $.queryToJson(paraUrl);
-            if(this.lruCache.get(jsUrl) && !!!paraJson['renew']){ //在缓存内获取到
-                var view = this.lruCache.get(jsUrl);
-                $("#page-wrapper").html(view.el);
-                view.delegateEvents();
-            }else {
-                require([jsUrl], function(index){
-                    var view = new index($.extend({method: url}, paraJson));
-                    self.lruCache.set(jsUrl, view);
-                    self.showView(view);
-                })
-            }
 
+            require([jsUrl], function(index){
+                var view = new index($.extend({method: url}, paraJson));
+                self.showView(view);
+            }, function(err){
+                var view404 = new self.view404(err);
+                self.showView(view404);
+            });
         }
     };
     var Router = Backbone.Router.extend({

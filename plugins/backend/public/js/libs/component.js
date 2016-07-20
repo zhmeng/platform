@@ -8,13 +8,13 @@ define([
 ], function($, _){
     var Tab = Backbone.Base.extend({
         initialize: function(params){
+            var self = this;
             this.$top = $('<ul class="nav nav-tabs">');
             this.$bottom = $('<div class="tab-content">');
             this.tabs = {};
             this.contents = {};
-            var self = this;
             _.each(params, function(d, idx) {
-                self.add(d);
+                self.addTab(d);
             });
             this.$full = $('<div>');
             this.$full.append(this.$top);
@@ -26,9 +26,6 @@ define([
         addTab: function(params){
             var idx = this.add(params);
             this.tabs[idx].find('a').tab('show');
-        },
-        closeTab: function(idx){
-            this.remove(idx);
         },
         add: function(params){
             var self = this;
@@ -50,7 +47,7 @@ define([
         },
         remove: function(idx){
             var self = this;
-            idx = idx.substring(1);
+            if(idx.indexOf('#') != -1) idx = idx.substring(1);
             _.each(this.tabs, function(v, k){
                if(k.length > idx.length || k > idx){
                    v.remove();
@@ -161,6 +158,9 @@ define([
         build: function(){
             this.owner.$el.append(this.tmpContent);
             this.tmpContent = $('<div></div>');
+        },
+        generate: function(){
+            return this.tmpContent;
         },
         rebuild: function(){
             this.owner.$el.empty();
