@@ -1,5 +1,4 @@
-import com.avaje.ebean.Ebean;
-import com.avaje.ebean.Page;
+import com.avaje.ebean.*;
 import controllers.backend.IndexAction;
 import forms.BankForm;
 import models.Bank;
@@ -17,6 +16,11 @@ import services.backend.BankService;
 import services.backend.BaseBean;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.LockSupport;
 
 /**
  * Created by zhangmeng on 16-6-27.
@@ -61,6 +65,50 @@ public class BaseTest {
         Page<Bank> list = bankService.list(bankForm);
         System.out.println(Paging.toPage(list).toJson());
 //        System.out.println(Json.toJson(list));
+    }
+
+    @Test
+    public void transactionTest() throws Exception{
+        ExecutorService executor = Executors.newFixedThreadPool(10);
+        final AtomicInteger ai = new AtomicInteger(0);
+        for(int i = 0 ;  i < 10 ; i++){
+            LockSupport.parkNanos(300);
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    Transaction transaction = Ebean.beginTransaction();
+                    try {
+                        Query<Bank> query = Ebean.createQuery(Bank.class);
+                        query.where().eq("id", 104);
+                        query.setForUpdate(true);
+                        query.findUnique();
+                        if(ai.incrementAndGet() == 1){
+                            throw new Exception("爆掉了..");
+                        }
+                        Bank bank = query.findUnique();
+                        String address = Thread.currentThread().getName() + System.currentTimeMillis();
+                        bank.setAddress(address);
+                        System.out.println("设置 104 bank 地址为: " + address);
+                        bank.save();
+                        transaction.commit();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        transaction.rollback();
+                    } finally {
+                        transaction.end();
+                    }
+                }
+            });
+        }
+        executor.shutdown();
+        try{
+            while(!executor.awaitTermination(3, TimeUnit.SECONDS)) ;
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }
+        System.out.println("finally end.");
+
+
     }
 
     @AfterClass

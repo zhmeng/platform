@@ -13,6 +13,7 @@ define([
             this.$bottom = $('<div class="tab-content">');
             this.tabs = {};
             this.contents = {};
+            this.idxArr = [];
             _.each(params, function(d, idx) {
                 self.addTab(d);
             });
@@ -25,7 +26,15 @@ define([
         },
         addTab: function(params){
             var idx = this.add(params);
+            this.idxArr.push(idx);
             this.tabs[idx].find('a').tab('show');
+        },
+        closeCurTab: function(){
+            if(this.idxArr.length > 1) {
+                var idx = this.idxArr[this.idxArr.length - 2];
+                this.remove(idx);
+                this.tabs[idx].find('a').tab('show');
+            }
         },
         add: function(params){
             var self = this;
@@ -51,13 +60,17 @@ define([
             _.each(this.tabs, function(v, k){
                if(k.length > idx.length || k > idx){
                    v.remove();
+                   var _index = self.idxArr.indexOf(k);
+                   if(_index != -1){
+                       self.idxArr.pop(_index);
+                   }
                    delete self.tabs[k];
                }
             });
             _.each(this.contents, function(v, k){
                if(k.length > idx.length || k > idx){
                    v.remove();
-                   delete self.tabs[k];
+                   delete self.contents[k];
                }
             });
         }

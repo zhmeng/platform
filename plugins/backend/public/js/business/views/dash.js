@@ -7,7 +7,7 @@ define(['backbone', 'component'], function(Backbone, Component){
             'click #btn': 'showClick'
         },
         showClick: function(){
-            console.log("hello");
+            this.parent.tabs.closeCurTab();
         },
         initialize: function(a, parent){
             this.parent = parent;

@@ -6,6 +6,7 @@ define(['backbone', 'component', 'js/business/views/dash'], function(Backbone, C
         tabs: undefined,
         tableRef: undefined, //table引用
         seaFormRef: undefined, //搜索框引用
+        tabs: undefined,
         initialize: function(){
             this.content = new Component(this);
             this.render();
