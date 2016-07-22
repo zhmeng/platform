@@ -7,11 +7,35 @@ define(['backbone', 'component'], function(Backbone, Component){
             'click #btn': 'showClick'
         },
         showClick: function(){
-            this.parent.tabs.closeCurTab();
+            this.tabs.closeCurTab();
         },
         initialize: function(a, parent){
             this.parent = parent;
-            this.$el.html('<button id="btn">CLICK</button>');
+            this.tabs = this.parent.tabs;
+            this.component = new Component(this);
+            this.render();
+        },
+        formParams: function(){
+            var formParams = [{
+                title: '编号',
+                name: 'no'
+            },{
+                title: '名称',
+                name: 'name'
+            },{
+                title: '地区码',
+                name: 'areacode'
+            },{
+                title: '地址',
+                name: 'address'
+            }];
+            return formParams;
+        },
+        render: function(){
+            var form = this.component.geneForm(this.formParams());
+            this.component
+                .appendPanel('HAHA', form.form())
+                .build();
         }
     });
     return app;

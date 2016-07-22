@@ -3,26 +3,22 @@
  */
 define(['backbone', 'component', 'js/business/views/dash'], function(Backbone, Component, Dash){
     var view = Backbone.View.extend({
-        tabs: undefined,
-        tableRef: undefined, //table引用
-        seaFormRef: undefined, //搜索框引用
-        tabs: undefined,
         initialize: function(){
-            this.content = new Component(this);
+            this.tabs = undefined;
+            this.tableRef = undefined; //table引用
+            this.seaFormRef =  undefined; //搜索框引用
+            this.tabs = undefined;
+            this.compoment = new Component(this);
             this.render();
         },
         render: function(){
-            var self = this;
-            this.seaFormRef = this.geneForm();
-            var $table = this.content.geneTable();
-            var $fullTable = this.content.geneFullTable(this.seaFormRef, $table);
-            this.rebuildTable($table);
-            this.tabs = this.content.geneTab([{
+            var $table = this.compoment.geneTable(this.tableParams(), this.searParams());
+            this.tabs = this.compoment.geneTab([{
                 title: '标题档',
-                content: this.content.genePanel("vvv", $fullTable),
+                content: this.compoment.genePanel(undefined, $table.geneTable()),
                 active: true
             }]);
-            this.content
+            this.compoment
                 .appendNative(this.tabs.full())
                 .build();
 
@@ -39,14 +35,13 @@ define(['backbone', 'component', 'js/business/views/dash'], function(Backbone, C
             this.tableRef.ajax.reload();
         },
         modify: function(){
-            var self = this;
             this.tabs.addTab({
                 title: '新增',
-                content: new Dash(undefined, this).el
+                content: new Dash(undefined, this).$el.children()
             })
         },
-        geneForm : function(){
-            var formParams = {
+        searParams : function() {
+            var searParams = {
                 filters:[{
                     title: '名称',
                     name: 'name'
@@ -54,27 +49,22 @@ define(['backbone', 'component', 'js/business/views/dash'], function(Backbone, C
                     title: '地址',
                     name: 'address'
                 }],
-                    btns: [{
+                btns: [{
                     title: '查询',
                     class: 'btn-primary',
-                    callback: $.proxy(this.doSearch, this)
+                    callback: 'search'
                 },{
                     title: '新增',
                     callback: $.proxy(this.modify, this)
                 }]
             };
-            var $searchContent = this.content.geneForm(formParams);
-            return $searchContent;
+            return searParams;
         },
-        rebuildTable: function($table){
-            var self = this;
-            var tableParams =　{
+        tableParams : function(){
+            var tableParams = {
                 "ajax": {
                     url: '/backend/demoData',
-                    type: 'POST',
-                    data: function(d){
-                        $.extend(d, self.seaFormRef.serializeJson());
-                    }
+                    type: 'POST'
                 },
                 columns: [{
                     title: "编号",
@@ -99,7 +89,7 @@ define(['backbone', 'component', 'js/business/views/dash'], function(Backbone, C
                     }
                 }]
             };
-            this.tableRef = $table.nDataTable(tableParams);
+            return tableParams;
         }
     });
     return view;
