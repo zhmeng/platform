@@ -85,13 +85,19 @@ define(['jquery', 'backbone', 'underscore', 'js/libs/stack', 'js/libs/lru'],func
             return {};
         }
     };
-    $.postJSON = function(url, data, success, failure) {
-        return $.ajax({
-            type: "POST",
-            url: url,
-            data: data,
-            dataType: "json",
-            success: success
+    $.postJSON = function(url,data,s,e){
+        if($.isFunction(data)){
+            e = s;
+            s = data;
+            data = {};
+        }
+        $.ajax({
+            url:url,
+            type:'post',
+            data:data,
+            dataType:'json',
+            success:s,
+            error:e
         });
     };
     Backbone.Base = function(){

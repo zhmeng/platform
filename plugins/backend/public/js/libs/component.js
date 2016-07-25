@@ -50,10 +50,9 @@ define([
         },
         geneTable: function(tableParmas, formParams){
             return new Table(tableParmas, formParams);
-            return table;
         },
-        geneForm: function(formParams) {
-            return new Form(formParams);
+        geneForm: function(formParams, initD) {
+            return new Form(formParams, initD);
         },
         build: function(){
             this.owner.$el.append(this.tmpContent.children());

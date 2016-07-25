@@ -40,7 +40,7 @@ object DynamicRoutes extends Router.Routes{
     }
   }
 
-  lazy val regex = """/(.+)/.+""".r
+  lazy val regex = """/(.*?)/.+""".r
 
   override def handlerFor(request: RequestHeader): Option[Handler] = {
     request.uri match {

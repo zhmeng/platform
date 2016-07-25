@@ -7,6 +7,6 @@ import router.RoutePlugin
  * Created by zhangmeng on 16-6-30.
  */
 class MiniShopPlugin(app: play.api.Application) extends RoutePlugin {
-  def prefix = None
+  def prefix = Some("minishop")
   Logger.info("mini shop plugin")
 }

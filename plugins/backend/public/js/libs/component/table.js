@@ -54,6 +54,11 @@ define(['jquery','underscore','common'], function($, _) {
             $e.append($group);
             return $e;
         },
+        reload: function(){
+            if(this.tableRef != undefined){
+                this.tableRef.ajax.reload(null, false);
+            }
+        },
         geneBtn : function(param) {
             var self = this;
             if(param['type'] == 'button') {
@@ -75,8 +80,9 @@ define(['jquery','underscore','common'], function($, _) {
             var self = this ;
             if(this.$initForm != undefined && this.tableParams.ajax != undefined){
                 this.tableParams.ajax.data = function(d){
-                    console.log('asdf');
                     var data = self.$initForm == undefined ? {} : self.$initForm.serializeJson();
+                    delete d['columns'];
+                    delete d['search'];
                     $.extend(d, data);
                 }
             }

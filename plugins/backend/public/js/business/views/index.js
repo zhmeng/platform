@@ -5,17 +5,17 @@ define(['backbone', 'component', 'js/business/views/dash'], function(Backbone, C
     var view = Backbone.View.extend({
         initialize: function(){
             this.tabs = undefined;
+            this.table = undefined;
             this.tableRef = undefined; //table引用
-            this.seaFormRef =  undefined; //搜索框引用
             this.tabs = undefined;
             this.compoment = new Component(this);
             this.render();
         },
         render: function(){
-            var $table = this.compoment.geneTable(this.tableParams(), this.searParams());
+            this.table = this.compoment.geneTable(this.tableParams(), this.searParams());
             this.tabs = this.compoment.geneTab([{
                 title: '标题档',
-                content: this.compoment.genePanel(undefined, $table.geneTable()),
+                content: this.compoment.genePanel(undefined, this.table.geneTable()),
                 active: true
             }]);
             this.compoment
@@ -23,21 +23,21 @@ define(['backbone', 'component', 'js/business/views/dash'], function(Backbone, C
                 .build();
 
         },
-        setVal: function(){
-            this.$('input[name=name]').val('vasdf');
-            this.doSearch();
+        reload: function(){
+            this.table.reload();
         },
-        showHello: function(d){
-            console.log('Hello');
-            console.log(d);
-        },
-        doSearch: function(){
-            this.tableRef.ajax.reload();
-        },
-        modify: function(){
+        modify: function(d, e){
+            var title = d == undefined ? '新增' : '修改';
             this.tabs.addTab({
-                title: '新增',
-                content: new Dash(undefined, this).$el.children()
+                title: title,
+                content: new Dash(d, this).$el.children()
+            })
+        },
+        delete: function(d, e){
+            var self = this;
+            $.postJSON('/backend/bank/delete', d, function(d){
+                self.reload();
+                return false;
             })
         },
         searParams : function() {
@@ -55,15 +55,16 @@ define(['backbone', 'component', 'js/business/views/dash'], function(Backbone, C
                     callback: 'search'
                 },{
                     title: '新增',
-                    callback: $.proxy(this.modify, this)
+                    callback: $.proxy(this.modify, this, undefined)
                 }]
             };
             return searParams;
         },
         tableParams : function(){
+            var self = this;
             var tableParams = {
                 "ajax": {
-                    url: '/backend/demoData',
+                    url: '/backend/bank/list',
                     type: 'POST'
                 },
                 columns: [{
@@ -82,10 +83,13 @@ define(['backbone', 'component', 'js/business/views/dash'], function(Backbone, C
                     title: '操作',
                     data: null,
                     render: function(data, type, full){
-                        return '<button>' + 'HELLO' + '</button>';
+                        var btnModify =  '<input type="button" value="修改" class="btn" name="modify"/>';
+                        var btnDelete =  '<input type="button" value="删除" class="btn" name="delete"/>';
+                        return btnModify + btnDelete;
                     },
                     createdCell: function (td, cellData, rowData, row, col) {
-                        $(td).children('button').on('click', $.proxy(self.showHello, self, rowData));
+                        $(td).find('input[name=modify]').on('click', $.proxy(self.modify, self, rowData));
+                        $(td).find('input[name=delete]').on('click', $.proxy(self.delete, self, rowData));
                     }
                 }]
             };
