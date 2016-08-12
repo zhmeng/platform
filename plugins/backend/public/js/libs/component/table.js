@@ -84,7 +84,8 @@ define(['jquery','underscore','common'], function($, _) {
                     delete d['columns'];
                     delete d['search'];
                     $.extend(d, data);
-                }
+                };
+                _.extend(this.tableParams)
             }
             this.tableRef = this.$initTable.nDataTable(this.tableParams);
         }

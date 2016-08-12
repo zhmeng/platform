@@ -1,3 +1,6 @@
 #page-wrapper table input[type=button] {
     margin-right: 10px;
 }
+#page-wrapper table tr td {
+    vertical-align: middle;
+}

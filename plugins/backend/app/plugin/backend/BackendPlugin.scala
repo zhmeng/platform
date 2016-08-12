@@ -9,5 +9,4 @@ import router.{RoutePlugin}
  */
 class BackendPlugin(app: play.api.Application) extends RoutePlugin {
   def prefix = Some("backend")
-  Logger.info("backend　plugin")
 }

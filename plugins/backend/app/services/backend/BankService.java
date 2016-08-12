@@ -43,7 +43,7 @@ public class BankService {
             }else{
                 Bank bank = new Bank();
                 BeanUtils.copyProperties(bankForm, bank);
-                bank.update();
+                bank.save();
                 return F.Either.Left(bank);
             }
         }catch(Exception e){

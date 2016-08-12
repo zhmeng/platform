@@ -11,7 +11,10 @@ libraryDependencies ++= Seq(
   "org.springframework" % "spring-context" % "3.2.5.RELEASE",
   "org.springframework" % "spring-aop" % "3.2.5.RELEASE",
   "org.springframework" % "spring-aspects" % "3.2.5.RELEASE",
-  "org.springframework" % "spring-test" % "3.2.5.RELEASE"
+  "org.springframework" % "spring-test" % "3.2.5.RELEASE",
+  "org.iq80.leveldb" % "leveldb" % "0.7",
+  "net.coobird" % "thumbnailator" % "0.4.8", // 图片缩放
+  "com.google.zxing" % "core" % "2.2" //二维码
 )
 
 resolvers += "Spy Repository" at "http://files.couchbase.com/maven2"

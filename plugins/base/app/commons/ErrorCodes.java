@@ -1,5 +1,7 @@
 package commons;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Created by zhangmeng on 16-7-25.
  */
@@ -13,7 +15,11 @@ public class ErrorCodes {
 
 
     public static ErrorCode with(Exception e){
-        return new ErrorCode(10000, e.getMessage());
+        if(StringUtils.isNotBlank(e.getMessage())){
+            return new ErrorCode(10000, e.getMessage());
+        }else {
+            return SYSTEM_ERROR;
+        }
     }
 
 }

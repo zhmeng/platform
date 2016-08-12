@@ -135,6 +135,7 @@ define(['jquery', 'backbone', 'underscore', 'js/libs/stack', 'js/libs/lru'],func
             "serverSide": true,
             "bLengthChange": false,
             iDisplayLength :10,
+            bAutoWidth: true,
             bFilter: false,
             "bSort": false,
             "oLanguage": {

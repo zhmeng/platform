@@ -3,7 +3,7 @@ import com.avaje.ebean.Page;
 import com.avaje.ebean.Query;
 import com.avaje.ebean.Transaction;
 import forms.BankForm;
-import models.Bank;
+import models.*;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -19,6 +19,8 @@ import plugins.ebean.Paging;
 import plugins.spring.Spring;
 import services.backend.BankService;
 
+import java.awt.geom.Area;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -111,6 +113,15 @@ public class BaseTest {
         Page<Bank> list = bankService.list(bankForm);
         System.out.println(Paging.toPage(list).toJson());
 //        System.out.println(Json.toJson(list));
+    }
+
+    @Test
+    public void modelTest(){
+        User user = Ebean.find(User.class).fetch("car").where().eq("id", 1).findUnique();
+
+        System.out.println(user.getCar().getName());
+        System.out.println(user.getUsername());
+
     }
 
     @Test
