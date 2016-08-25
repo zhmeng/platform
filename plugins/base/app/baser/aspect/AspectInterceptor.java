@@ -23,6 +23,7 @@ public class AspectInterceptor{
      ** 切点 　　
      */
     @Pointcut("@annotation(baser.aspect.With)")
+
     public void interceptPoint() {};
 
     /***

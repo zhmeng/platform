@@ -20,6 +20,7 @@ import plugins.spring.Spring;
 import services.backend.BankService;
 
 import java.awt.geom.Area;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -117,11 +118,44 @@ public class BaseTest {
 
     @Test
     public void modelTest(){
-        User user = Ebean.find(User.class).fetch("car").where().eq("id", 1).findUnique();
+//        List<User> users = User.finder.findList();
+//
+//        List<User> filteredUser = Ebean.filter(User.class).contains("password", "1234").filter(users);
+//
+//        for(User single: filteredUser) {
+//            System.out.println(single.getUsername());
+//        }
+//
+//        System.out.println("-------------");
+//
+//        List<User> all = User.finder.all();
+//
+//        User user = Ebean.find(User.class).fetch("car").fetch("address").where().eq("id", 1).findUnique();
+//
+//        user.getCar().setName("xccccccc");
+//        user.update();
+//        System.out.println(user.getCar().getName());
+//        System.out.println(user.getUsername());
+//        System.out.println(user.getAddress().getName());
 
-        System.out.println(user.getCar().getName());
-        System.out.println(user.getUsername());
-
+        User newUser = new User();
+        newUser.setUsername("11User");
+        newUser.setPassword("1233234");
+        Car car = new Car();
+        car.setId(11);
+        car.setName("宝马");
+        newUser.setCar(car);
+        newUser.save();
+//
+//        Address address = Ebean.find(Address.class).fetch("users").where().eq("id", 10).findUnique();
+//        for(User single : address.getUsers()){
+//            System.out.println(single.getUsername() + "住在: " + address.getName());
+//        }
+//
+//        Car car = Ebean.find(Car.class).fetch("users").where().eq("id", 10).findUnique();
+//        for(User single: car.getUsers()){
+//            System.out.println(car.getName() + "的使用者: " + single.getUsername());
+//        }
     }
 
     @Test

@@ -19,11 +19,11 @@ public class User extends Model{
     private String password;
 
 
-    private Integer addressId;
+    @ManyToOne
+    @JoinColumn(name="address_id")
+    private Address address;
 
-
-    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name="car_id")
+    @ManyToOne(cascade = CascadeType.DETACH)
     private Car car;
 
     public Car getCar() {
@@ -61,11 +61,11 @@ public class User extends Model{
         this.password = password;
     }
 
-    public Integer getAddressId() {
-        return addressId;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

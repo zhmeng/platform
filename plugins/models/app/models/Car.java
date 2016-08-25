@@ -2,10 +2,8 @@ package models;
 
 import play.db.ebean.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by zhangmeng on 16-8-11.
@@ -14,9 +12,6 @@ import javax.persistence.PrimaryKeyJoinColumn;
 public class Car extends Model{
     @Id
     private Integer id;
-
-    @OneToOne(mappedBy = "car")
-    public User user;
 
     private String name;
 
@@ -37,4 +32,5 @@ public class Car extends Model{
     public void setId(Integer id) {
         this.id = id;
     }
+
 }
