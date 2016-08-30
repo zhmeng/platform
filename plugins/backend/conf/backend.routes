@@ -1,15 +1,3 @@
 GET		/login			@controllers.backend.IndexAction.login()
 
 GET     /index          @controllers.backend.IndexAction.index()
-
-GET		/demoData		@controllers.backend.IndexAction.demoData()
-
-POST	/demoData		@controllers.backend.IndexAction.demoData()
-
-GET		/bank/list		@controllers.backend.BankAction.list()
-
-POST	/bank/list		@controllers.backend.BankAction.list()
-
-POST	/bank/modify	@controllers.backend.BankAction.modify()
-
-POST	/bank/delete	@controllers.backend.BankAction.delete()
