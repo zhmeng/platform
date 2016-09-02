@@ -1,0 +1,2 @@
+GET		/login			controllers.teamclub.IndexController.login
+GET		/loginInvoke	controllers.teamclub.IndexController.loginInvoke

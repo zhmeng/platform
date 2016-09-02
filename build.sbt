@@ -42,4 +42,11 @@ lazy val minishop = project.in(file("plugins/minishop"))
   .dependsOn(backend)
   .aggregate(backend)
 
+lazy val teamclub = project.in(file("plugins/teamclub"))
+  .settings(playJavaSettings ++ commonSetting: _*)
+  .dependsOn(backend)
+  .aggregate(backend)
+
+
+
 play.Project.playScalaSettings
