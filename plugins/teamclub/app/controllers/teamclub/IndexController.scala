@@ -1,10 +1,10 @@
 package controllers.teamclub
 
-import commons.{Eithers, ErrorCode}
-import play.api.Logger
+import com.avaje.ebean.Ebean
+import commons.Eithers
+import modelx.teamclub.User
 import play.api.mvc._
 import plugins.freemarker.Freemarker.view
-import play.api.libs.json._
 
 /**
  * Created by zhangmeng on 16-8-30.
@@ -14,6 +14,11 @@ object IndexController extends Controller{
     Ok(view("teamclub/login.ftl"))
   }
   def loginInvoke = Action {
-    Ok(Eithers.success)
+    val user = Ebean.getServer("jira").find(classOf[User]).where().eq("userKey", "").findUnique()
+    if(user == null) {
+      Ok(Eithers.success)
+    }else {
+      Ok(Eithers.failure("未找到用户"))
+    }
   }
 }

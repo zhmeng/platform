@@ -1,2 +1,4 @@
-GET		/login			controllers.teamclub.IndexController.login
-GET		/loginInvoke	controllers.teamclub.IndexController.loginInvoke
+GET			/login			controllers.teamclub.IndexController.login
+POST		/loginInvoke	controllers.teamclub.IndexController.loginInvoke
+
+GET			/testHtml		controllers.teamclub.HtmlController.index

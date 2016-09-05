@@ -1,6 +1,5 @@
 package commons
 
-import com.fasterxml.jackson.databind.JsonNode
 import play.api.libs.json._
 
 /**
@@ -9,5 +8,13 @@ import play.api.libs.json._
 object Eithers {
   val success = {
     Json.toJson(ErrorCodes.SUCCESS)
+  }
+
+  def failure(errorCode: ErrorCode) = {
+    Json.toJson(errorCode)
+  }
+
+  def failure(msg: String) = {
+    Json.toJson(ErrorCode(500, msg))
   }
 }

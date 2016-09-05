@@ -1,6 +1,6 @@
-package jira
+package modelx.teamclub
 
-import javax.persistence.{Entity, MappedSuperclass, Table}
+import javax.persistence.{Entity, Table}
 
 import play.db.ebean.Model
 
@@ -13,9 +13,10 @@ import scala.beans.BeanProperty
 @Table(name="app_user")
 class User extends Model{
   @BeanProperty
-  var ID:Integer = _
+  var id:Integer = _
   @BeanProperty
   var userKey: String = _
   @BeanProperty
   var lowerUserName: String = _
+
 }

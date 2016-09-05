@@ -6,7 +6,6 @@ define(['backbone', 'component', 'js/business/views/dash'], function(Backbone, C
         initialize: function(){
             this.tabs = undefined;
             this.table = undefined;
-            this.tableRef = undefined; //table引用
             this.tabs = undefined;
             this.compoment = new Component(this);
             this.render();

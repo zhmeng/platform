@@ -97,7 +97,9 @@ define(['jquery', 'backbone', 'underscore', 'js/libs/stack', 'js/libs/lru'],func
             data:data,
             dataType:'json',
             success:s,
-            error:e
+            error:function(e) {
+                alert('失败');
+            }
         });
     };
     Backbone.Base = function(){

@@ -7,8 +7,18 @@ define([
     'js/libs/component/form',
     'js/libs/component/tab',
     'js/libs/component/table',
+    'js/libs/component/modal',
     'datatables'
-], function($, _, Form, Tab, Table){
+], function($, _, Form, Tab, Table, Modal){
+    var SC = window.SC = window.SC || {};
+    SC.Alert = function(title, content){
+        title = title || '提示'
+        content = content || ''
+        $('body').append((new Modal({
+            'title': $("<div>" + title + "</div>"),
+            'body': $("<div>" + content + "</div>")
+        }).$el))
+    };
     var base = Backbone.Base.extend({
         initialize: function(owner){
             this.tmpContent = $("<div></div>");

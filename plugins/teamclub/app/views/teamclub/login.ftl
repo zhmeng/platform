@@ -20,7 +20,7 @@
                     <h3 class="panel-title">请登录</h3>
                 </div>
                 <div class="panel-body">
-                    <form role="form">
+                    <div role="form">
                         <fieldset>
                             <div class="form-group">
                                 <input class="form-control" placeholder="用户名(JIRA)" name="username" type="text" autofocus="true">
@@ -28,7 +28,7 @@
                             <!-- Change this to a button or input when using this as a form -->
                             <button id="login" href="index" class="btn btn-lg btn-success btn-block">Login</button>
                         </fieldset>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -36,7 +36,11 @@
 </div>
 <script>
     document.getElementById('login').addEventListener('click', function() {
-        alert('haha')
+		var postD = $('form').serializeJson();
+		console.log(postD)
+		$.postJSON('/teamclub/loginInvoke', postD, function(d){
+			console.log(d);
+		});
 		return false
     });
 </script>
