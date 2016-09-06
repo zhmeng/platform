@@ -25,7 +25,7 @@
         }
     });
     require(['jquery', 'underscore', 'backbone', 'common' , 'bootstrap', 'metisMenu', 'js/business/app',
-        'datatables', 'datatables.bootstrap', 'datatables.responsive'], function(a, b, c, d, e, f, App) {
+        'datatables', 'datatables.bootstrap', 'datatables.responsive', 'component'], function(a, b, c, d, e, f, App) {
         if(window.location.href.indexOf("login") !== -1) {
             return false;
         }

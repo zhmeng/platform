@@ -7,4 +7,6 @@ import router.RoutePlugin
  */
 class TeamClubPlugin(app: play.api.Application) extends RoutePlugin {
   def prefix = Some("teamclub")
+
+  def prefixHandler = ???
 }

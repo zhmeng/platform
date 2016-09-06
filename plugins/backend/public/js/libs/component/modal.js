@@ -32,6 +32,11 @@ define(['jquery','underscore','common'], function($, _) {
         render: function() {
             var self = this ;
             this.$el.append(this.templ())
+            if(this.params['type'] = 'small') {
+                this.$el.find('modal-dialog').addClass('modal-sm')
+            }else if(this.params['type'] = 'large'){
+                this.$el.find('modal-dialog').addClass('modal-lg')
+            }
             if(this.params['title'] !== undefined) {
                 this.$el.find('.modal-title').append(this.params['title'])
             }

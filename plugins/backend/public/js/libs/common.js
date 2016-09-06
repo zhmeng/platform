@@ -94,11 +94,12 @@ define(['jquery', 'backbone', 'underscore', 'js/libs/stack', 'js/libs/lru'],func
         $.ajax({
             url:url,
             type:'post',
-            data:data,
-            dataType:'json',
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            dataType: "json",
             success:s,
             error:function(e) {
-                alert('失败');
+                alert('ajax调用失败');
             }
         });
     };

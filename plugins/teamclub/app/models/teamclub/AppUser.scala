@@ -1,6 +1,6 @@
-package modelx.teamclub
+package models.teamclub
 
-import javax.persistence.{Entity, Table}
+import javax.persistence.Entity
 
 import play.db.ebean.Model
 
@@ -9,9 +9,9 @@ import scala.beans.BeanProperty
 /**
  * Created by zhangmeng on 16-8-30.
  */
+
 @Entity
-@Table(name="app_user")
-class User extends Model{
+class AppUser extends Model{
   @BeanProperty
   var id:Integer = _
   @BeanProperty

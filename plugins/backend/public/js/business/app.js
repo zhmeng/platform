@@ -12,7 +12,7 @@ define(['backbone', 'jquery', 'common'], function(Backbone, $){
         },
         view404: Backbone.View.extend({
             initialize: function(err){
-                this.$el.html(err.message);
+                this.$el.append($("<div>" + err.message  + "</div>"));
             }
         }),
         modifyMenu: function(){

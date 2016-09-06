@@ -40,6 +40,7 @@
 		<#nested />
 		<!-- jQuery -->
     	<script data-main="/assets/js/main" src="/assets/bower_components/requirejs/require.js"></script>
+		${js}
 	</body>
 </html>
 

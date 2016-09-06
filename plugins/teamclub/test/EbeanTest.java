@@ -1,7 +1,6 @@
 import com.avaje.ebean.Ebean;
 import com.avaje.ebean.EbeanServer;
-
-import modelx.teamclub.User;
+import models.teamclub.AppUser;
 import org.junit.Test;
 
 /**
@@ -13,7 +12,7 @@ public class EbeanTest extends BaseTest{
     @Test
     public void testDB(){
         EbeanServer server = Ebean.getServer("jira");
-        User user = server.find(User.class).where().eq("userKey","ccsoul").findUnique();
+        AppUser user = server.find(AppUser.class).where().eq("userKey","ccsoul").findUnique();
         System.out.println(user.getUserKey());
     }
 
