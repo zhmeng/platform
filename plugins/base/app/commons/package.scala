@@ -1,5 +1,6 @@
-import play.api.libs.json.{JsPath, Reads, Json, Writes}
+import com.fasterxml.jackson.databind.JsonNode
 import play.api.libs.functional.syntax._
+import play.api.libs.json._
 /**
  * Created by zhangmeng on 16-9-1.
  */
@@ -13,4 +14,9 @@ package object commons {
     (JsPath \ "status").read[Int] and
     (JsPath \ "message").read[String]
   )(ErrorCode.apply _)
+
+  implicit def convertJ(json: JsValue): JsonNode = {
+    play.libs.Json.parse(json.toString)
+  }
+
 }

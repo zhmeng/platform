@@ -16,7 +16,7 @@
     document.getElementById('login').addEventListener('click', function() {
         var postD = $('#xform').serializeJson();
         console.log(postD)
-        $.postJSON('/teamclub/loginInvoke', postD, function(d){
+        $.postJSON('/backend/loginInvoke', postD, function(d){
             if(d['status'] == 0 ){
                 window.location.href='/backend/index'
             }else {

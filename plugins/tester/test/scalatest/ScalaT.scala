@@ -2,7 +2,15 @@ package scalatest
 
 import java.util
 
+import com.fasterxml.jackson.core.Version
+import com.fasterxml.jackson.databind.Module.SetupContext
+import com.fasterxml.jackson.databind.ser.Serializers
+import com.fasterxml.jackson.databind._
+import com.fasterxml.jackson.databind.deser.Deserializers
+import com.fasterxml.jackson.databind.module.SimpleModule
+import commons.{Eithers, ErrorCode}
 import org.apache.bcel.classfile.InnerClass
+import play.api.libs.json.{JsValue, JsNull, Json}
 import play.libs.Scala
 
 import scala.util.{Failure, Success, Try}
@@ -44,10 +52,7 @@ trait B {
   }
 }
 
-class XX extends Function1[String, String] {
-  override def apply(v1: String): String = ???
-}
-
 object XMain extends App {
-  def foo(i: Int): Int = { i + 2 }
+  val i: java.lang.Integer = -1
+  println(Int.unbox(i))
 }

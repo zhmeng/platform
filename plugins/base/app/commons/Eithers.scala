@@ -17,4 +17,5 @@ object Eithers {
   def failure(msg: String) = {
     Json.toJson(ErrorCode(500, msg))
   }
+
 }
