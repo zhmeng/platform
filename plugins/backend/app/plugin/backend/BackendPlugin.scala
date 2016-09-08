@@ -13,7 +13,7 @@ class BackendPlugin(app: play.api.Application) extends RoutePlugin {
   override val prefixHandler = {
     val resp  = (request: RequestHeader) => {
       request.session.get("connected") match {
-        case Some(s) => println(s)
+        case Some(s) =>
         case None =>
       }
     }

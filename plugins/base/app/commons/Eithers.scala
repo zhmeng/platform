@@ -6,6 +6,10 @@ import play.api.libs.json._
  * Created by zhangmeng on 16-9-2.
  */
 object Eithers {
+  def toJson(error: ErrorCode): JsValue = {
+    Json.toJson(error)
+  }
+
   val success = {
     Json.toJson(ErrorCodes.SUCCESS)
   }

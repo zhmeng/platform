@@ -4,6 +4,7 @@ import com.avaje.ebean.Ebean;
 import com.fasterxml.jackson.databind.JsonNode;
 import commons.Eithers;
 import commons.ErrorCode;
+import commons.ErrorCodes;
 import models.teamclub.AppUser;
 import org.springframework.stereotype.Component;
 import play.api.libs.json.JsValue;
@@ -30,7 +31,7 @@ public class LoginService implements ILogin{
         if(unique != null) {
             return F.Either.Left(username);
         }else {
-            return F.Either.Right(null);
+            return F.Either.Right(ErrorCodes.of("没有查询到用户"));
         }
     }
 }
