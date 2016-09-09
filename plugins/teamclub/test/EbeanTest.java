@@ -18,4 +18,14 @@ public class EbeanTest extends BaseTest{
         versionManager.save();
     }
 
+    @Test
+    public void testEq(){
+        Integer i = 12;
+        if((i != null) && (i == 10 || i == 12)){
+            System.out.println("PingPong");
+        }else {
+            System.out.println("Error");
+        }
+    }
+
 }

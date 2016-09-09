@@ -1,7 +1,7 @@
 package models.xteamclub
 
 import java.util.Date
-import javax.persistence.{Table, Version, Id, Entity}
+import javax.persistence.{Entity, Id, Table, Version}
 
 import play.db.ebean.Model
 
@@ -26,4 +26,14 @@ class VersionManager extends Model{
   @BeanProperty
   @Version
   var updateVersion:Date = _
+}
+
+object VersionManager {
+  import play.api.libs.json._
+  implicit val locationWrites = new Writes[VersionManager] {
+    def writes(versionManager: VersionManager) = Json.obj(
+      "commitVersion" -> versionManager.commitVersion,
+      "filePath" -> versionManager.filePath
+    )
+  }
 }

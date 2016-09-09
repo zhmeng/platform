@@ -33,7 +33,7 @@ object IndexAction extends Controller{
     if(resp.left.isDefined){
       Ok(Eithers.success).withSession("connected" -> username)
     }else {
-      Ok(Eithers.toJson(resp.right.get))
+      Ok(Eithers.failure(resp.right.get))
     }
   }
 
